@@ -1,13 +1,13 @@
 # Challenge 4: Root Pearl (Easy)
 
-**Category:** Privilege Escalation  
+**Category:** Forensics / Enumeration  
 **Difficulty:** Easy  
 **Points:** 150  
-**Flag:** `blackperl{su1d_b1n4ry_r34ds_th3_fl4g}`
+**Flag:** `blackperl{f1nd_th3_h1dd3n_f1l3}`
 
 ## Description
 
-The flag is stored in a file that only root can read. Find and run a SUID binary that can read it for you.
+The flag is hidden somewhere on the system. Use enumeration techniques to find it.
 
 ## Access
 
@@ -29,31 +29,29 @@ Open the web terminal URL in your browser and login as `ctfuser`.
 cat /home/ctfuser/hint.txt
 ```
 
-It tells you to find SUID binaries.
+It tells you to search for files with "flag" or "secret" in the name.
 
-### Step 3: Find SUID Binaries
+### Step 3: Search for Flag Files
 
 ```bash
-find / -perm -4000 2>/dev/null
+find / -name "*flag*" 2>/dev/null
+find / -name "*secret*" 2>/dev/null
 ```
 
-You'll find `/usr/local/bin/readflag`
+You'll find: `/var/games/hidden/.secret_flag`
 
-### Step 4: Run the SUID Binary
+### Step 4: Read the Flag
 
 ```bash
-readflag
+cat /var/games/hidden/.secret_flag
 ```
 
 Output:
 ```
-=== Flag Reader ===
-This program can read the flag
-
-blackperl{su1d_b1n4ry_r34ds_th3_fl4g}
+blackperl{f1nd_th3_h1dd3n_f1l3}
 ```
 
-**Note:** The `readflag` binary is a compiled C program with the SUID bit set. Unlike bash scripts, compiled binaries properly respect the SUID bit and run with the file owner's privileges (root in this case). The flag is stored at `/opt/ctf/flag.txt` with root-only permissions.
+**Note:** This challenge was redesigned to work within Render's container security restrictions (no_new_privs flag). Instead of privilege escalation, it focuses on file enumeration and finding hidden files.
 
 ## Running Locally
 

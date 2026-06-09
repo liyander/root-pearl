@@ -5,38 +5,40 @@
 | Field | Details |
 |-------|---------|
 | **Name** | Root Pearl |
-| **Category** | Privilege Escalation |
+| **Category** | Forensics / Enumeration |
 | **Difficulty** | Easy |
 | **Points** | 150 |
 | **Flag Format** | `blackperl{...}` |
 | **Access** | Web browser (ttyd terminal) |
-| **Technologies** | Linux, SUID binaries, ttyd |
+| **Technologies** | Linux, file enumeration |
 
 ## Description
 
-The flag is stored in a file that only root can read. Find a SUID binary that can read it for you.
+The flag is hidden somewhere on the system. Use enumeration techniques to find it.
 
 ## Objective
 
-Find and execute a SUID binary to read a root-only flag file.
+Find a hidden flag file on the system using file search commands.
 
 ## What You Will Learn
 
-- What SUID binaries are
-- How to find SUID binaries using `find`
-- How SUID binaries can be used to escalate privileges
-- Using web-based terminals for remote challenges
+- How to use `find` command to search for files
+- How to search for hidden files (starting with a dot)
+- Basic Linux file system navigation
+- Enumeration techniques for CTF challenges
 
 ## Skills Required
 
 - Basic Linux command line
-- Understanding of file permissions
+- Understanding of `find` command
+- Knowledge of hidden files in Linux
 
 ## Hints
 
 1. Read the hint file at `/home/ctfuser/hint.txt`.
-2. Use `find / -perm -4000 2>/dev/null` to find SUID binaries.
-3. Run the binary you find to read the flag.
+2. Use `find / -name "*flag*" 2>/dev/null` to search for files with "flag" in the name.
+3. Use `find / -name "*secret*" 2>/dev/null` to search for files with "secret" in the name.
+4. Look for hidden files: `find / -name ".*" -type f 2>/dev/null | grep -v "/proc\|/sys"`
 
 ## Tools Required
 
@@ -77,3 +79,7 @@ Players access via the Render URL in their browser.
 - Web-based terminal access
 - Credentials: `ctfuser` / `ctfuser`
 - Hint file at `/home/ctfuser/hint.txt`
+
+## Note
+
+This challenge was redesigned to work within Render's container security restrictions. The original privilege escalation version (using SUID binaries) does not work on Render due to the `no_new_privs` security flag. The new version focuses on file enumeration instead.
