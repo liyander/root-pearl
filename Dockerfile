@@ -44,7 +44,6 @@ RUN echo '#include <stdio.h>' > /tmp/readflag.c && \
     echo '    return 0;' >> /tmp/readflag.c && \
     echo '}' >> /tmp/readflag.c && \
     gcc -o /usr/local/bin/readflag /tmp/readflag.c && \
-    chmod 4755 /usr/local/bin/readflag && \
     chown root:root /usr/local/bin/readflag && \
     rm /tmp/readflag.c
 
@@ -61,10 +60,11 @@ RUN echo '#!/bin/bash' > /home/ctfuser/hint.txt && \
     chmod 444 /home/ctfuser/hint.txt && \
     chown ctfuser:ctfuser /home/ctfuser/hint.txt
 
-RUN ls -la /opt/ctf/flag.txt && \
-    ls -la /usr/local/bin/readflag && \
-    file /usr/local/bin/readflag
+RUN echo '#!/bin/bash' > /entrypoint.sh && \
+    echo 'chmod 4755 /usr/local/bin/readflag' >> /entrypoint.sh && \
+    echo 'exec ttyd -p 10000 -W login -f ctfuser' >> /entrypoint.sh && \
+    chmod +x /entrypoint.sh
 
 EXPOSE 10000
 
-CMD ["ttyd", "-p", "10000", "-W", "login", "-f", "ctfuser"]
+CMD ["/entrypoint.sh"]
