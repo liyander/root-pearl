@@ -1,0 +1,6 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "ttyd -p 10000 -W login -f ctfuser"
+restartPolicyType = "on_failure"
