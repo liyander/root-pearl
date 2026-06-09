@@ -10,6 +10,7 @@ RUN apt-get update && \
     netcat \
     sudo \
     gcc \
+    libc6-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m -s /bin/bash ctfuser && \
