@@ -26,8 +26,6 @@ RUN echo '#include <stdio.h>' > /tmp/readflag.c && \
     echo '#include <stdlib.h>' >> /tmp/readflag.c && \
     echo '#include <unistd.h>' >> /tmp/readflag.c && \
     echo 'int main() {' >> /tmp/readflag.c && \
-    echo '    setuid(0);' >> /tmp/readflag.c && \
-    echo '    setgid(0);' >> /tmp/readflag.c && \
     echo '    printf("=== Flag Reader ===\\n");' >> /tmp/readflag.c && \
     echo '    printf("This program can read the flag\\n\\n");' >> /tmp/readflag.c && \
     echo '    FILE *fp = fopen("/opt/ctf/flag.txt", "r");' >> /tmp/readflag.c && \
@@ -45,7 +43,11 @@ RUN echo '#include <stdio.h>' > /tmp/readflag.c && \
     echo '}' >> /tmp/readflag.c && \
     gcc -o /usr/local/bin/readflag /tmp/readflag.c && \
     chown root:root /usr/local/bin/readflag && \
+    chmod 4755 /usr/local/bin/readflag && \
     rm /tmp/readflag.c
+
+RUN echo 'ctfuser ALL=(root) NOPASSWD: /usr/local/bin/readflag' > /etc/sudoers.d/ctfuser && \
+    chmod 440 /etc/sudoers.d/ctfuser
 
 RUN echo '#!/bin/bash' > /home/ctfuser/hint.txt && \
     echo 'Welcome to the Root Pearl challenge!' >> /home/ctfuser/hint.txt && \
@@ -54,7 +56,7 @@ RUN echo '#!/bin/bash' > /home/ctfuser/hint.txt && \
     echo '' >> /home/ctfuser/hint.txt && \
     echo 'However, there is a special program that can read it for you.' >> /home/ctfuser/hint.txt && \
     echo '' >> /home/ctfuser/hint.txt && \
-    echo 'Try: find / -perm -4000 2>/dev/null' >> /home/ctfuser/hint.txt && \
+    echo 'Try: sudo -l' >> /home/ctfuser/hint.txt && \
     echo '' >> /home/ctfuser/hint.txt && \
     echo 'Then run the program you find!' >> /home/ctfuser/hint.txt && \
     chmod 444 /home/ctfuser/hint.txt && \
