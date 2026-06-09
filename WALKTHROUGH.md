@@ -53,6 +53,8 @@ This program can read /root/flag.txt
 blackperl{su1d_b1n4ry_r34ds_th3_fl4g}
 ```
 
+**Note:** The `readflag` binary is a compiled C program with the SUID bit set. Unlike bash scripts, compiled binaries properly respect the SUID bit and run with the file owner's privileges (root in this case).
+
 ## Running Locally
 
 ```bash

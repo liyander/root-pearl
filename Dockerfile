@@ -9,6 +9,7 @@ RUN apt-get update && \
     curl \
     netcat \
     sudo \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m -s /bin/bash ctfuser && \
