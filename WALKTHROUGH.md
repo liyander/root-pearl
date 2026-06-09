@@ -7,7 +7,7 @@
 
 ## Description
 
-The flag is in /root/flag.txt but you can't read it. Find and run a SUID binary that can read it for you.
+The flag is stored in a file that only root can read. Find and run a SUID binary that can read it for you.
 
 ## Access
 
@@ -48,12 +48,12 @@ readflag
 Output:
 ```
 === Flag Reader ===
-This program can read /root/flag.txt
+This program can read the flag
 
 blackperl{su1d_b1n4ry_r34ds_th3_fl4g}
 ```
 
-**Note:** The `readflag` binary is a compiled C program with the SUID bit set. Unlike bash scripts, compiled binaries properly respect the SUID bit and run with the file owner's privileges (root in this case).
+**Note:** The `readflag` binary is a compiled C program with the SUID bit set. Unlike bash scripts, compiled binaries properly respect the SUID bit and run with the file owner's privileges (root in this case). The flag is stored at `/opt/ctf/flag.txt` with root-only permissions.
 
 ## Running Locally
 

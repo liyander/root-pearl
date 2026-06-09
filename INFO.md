@@ -14,7 +14,7 @@
 
 ## Description
 
-The flag is in /root/flag.txt but you can't read it directly. Find a SUID binary that can read it for you.
+The flag is stored in a file that only root can read. Find a SUID binary that can read it for you.
 
 ## Objective
 
