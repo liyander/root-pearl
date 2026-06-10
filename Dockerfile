@@ -33,6 +33,15 @@ RUN echo '#!/bin/bash' > /home/ctfuser/hint.txt && \
     chmod 444 /home/ctfuser/hint.txt && \
     chown ctfuser:ctfuser /home/ctfuser/hint.txt
 
+RUN echo 'export HISTSIZE=0' > /etc/profile.d/nohistory.sh && \
+    echo 'export HISTFILESIZE=0' >> /etc/profile.d/nohistory.sh && \
+    echo 'unset HISTFILE' >> /etc/profile.d/nohistory.sh && \
+    chmod +x /etc/profile.d/nohistory.sh && \
+    echo 'export HISTSIZE=0' >> /home/ctfuser/.bashrc && \
+    echo 'export HISTFILESIZE=0' >> /home/ctfuser/.bashrc && \
+    echo 'unset HISTFILE' >> /home/ctfuser/.bashrc && \
+    chown ctfuser:ctfuser /home/ctfuser/.bashrc
+
 RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo 'export HISTSIZE=0' >> /entrypoint.sh && \
     echo 'export HISTFILESIZE=0' >> /entrypoint.sh && \
