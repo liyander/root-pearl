@@ -34,6 +34,9 @@ RUN echo '#!/bin/bash' > /home/ctfuser/hint.txt && \
     chown ctfuser:ctfuser /home/ctfuser/hint.txt
 
 RUN echo '#!/bin/bash' > /entrypoint.sh && \
+    echo 'export HISTSIZE=0' >> /entrypoint.sh && \
+    echo 'export HISTFILESIZE=0' >> /entrypoint.sh && \
+    echo 'unset HISTFILE' >> /entrypoint.sh && \
     echo 'exec ttyd -p 10000 -W login -f ctfuser' >> /entrypoint.sh && \
     chmod +x /entrypoint.sh
 
